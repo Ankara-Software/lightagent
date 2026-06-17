@@ -1,0 +1,35 @@
+{
+  "name": "lightagent-cli",
+  "version": "0.1.0",
+  "description": "Zero-Dependency, State-Preserving Agent CLI — written in Rust",
+  "main": "bin/cli.js",
+  "bin": {
+    "lightagent": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anilcan-kara/lightagent.git"
+  },
+  "keywords": [
+    "agent",
+    "autonomous-ai-agents",
+    "automation",
+    "devops",
+    "state-preserving",
+    "local-ai",
+    "rust",
+    "zero-dependency"
+  ],
+  "author": "Anilcan Kara",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anilcan-kara/lightagent/issues"
+  },
+  "homepage": "https://github.com/anilcan-kara/lightagent#readme",
+  "engines": {
+    "node": ">=14"
+  }
+}
