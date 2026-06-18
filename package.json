@@ -1,5 +1,5 @@
 {
-  "name": "lightagent-cli",
+  "name": "@nozich/lightagent",
   "version": "0.1.2",
   "description": "Zero-Dependency, State-Preserving Agent CLI — written in Rust",
   "main": "bin/cli.js",
