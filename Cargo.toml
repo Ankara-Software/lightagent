@@ -1,6 +1,6 @@
 [package]
 name = "lightagent"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 authors = ["Anilcan Kara <anilcankara.com@gmail.com>"]
 description = "Zero-Dependency, State-Preserving Agent CLI"
@@ -9,7 +9,7 @@ license = "MIT"
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-reqwest = { version = "0.11", features = ["json", "blocking"] }
+reqwest = { version = "0.11", default-features = false, features = ["json", "blocking", "rustls-tls"] }
 clap = { version = "4.4", features = ["derive"] }
 chrono = { version = "0.4", features = ["serde"] }
 colored = "2.0"

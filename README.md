@@ -50,11 +50,11 @@ cargo build --release
 
 ### 4. Direct Binary Download
 You can download the precompiled static binary for your platform directly from the GitHub Release assets:
-- 💻 **Windows (x64)**: [lightagent-win32-x64.exe](https://github.com/anilcan-kara/lightagent/releases/download/v0.1.1/lightagent-win32-x64.exe)
-- 🐧 **Linux (x64)**: [lightagent-linux-x64](https://github.com/anilcan-kara/lightagent/releases/download/v0.1.1/lightagent-linux-x64)
-- 🐧 **Linux (ARM64)**: [lightagent-linux-arm64](https://github.com/anilcan-kara/lightagent/releases/download/v0.1.1/lightagent-linux-arm64)
-- 🍎 **macOS (x64)**: [lightagent-darwin-x64](https://github.com/anilcan-kara/lightagent/releases/download/v0.1.1/lightagent-darwin-x64)
-- 🍎 **macOS (ARM64)**: [lightagent-darwin-arm64](https://github.com/anilcan-kara/lightagent/releases/download/v0.1.1/lightagent-darwin-arm64)
+- 💻 **Windows (x64)**: [lightagent-win32-x64.exe](https://github.com/anilcan-kara/lightagent/releases/download/v0.1.2/lightagent-win32-x64.exe)
+- 🐧 **Linux (x64)**: [lightagent-linux-x64](https://github.com/anilcan-kara/lightagent/releases/download/v0.1.2/lightagent-linux-x64)
+- 🐧 **Linux (ARM64)**: [lightagent-linux-arm64](https://github.com/anilcan-kara/lightagent/releases/download/v0.1.2/lightagent-linux-arm64)
+- 🍎 **macOS (x64)**: [lightagent-darwin-x64](https://github.com/anilcan-kara/lightagent/releases/download/v0.1.2/lightagent-darwin-x64)
+- 🍎 **macOS (ARM64)**: [lightagent-darwin-arm64](https://github.com/anilcan-kara/lightagent/releases/download/v0.1.2/lightagent-darwin-arm64)
 
 ---
 
