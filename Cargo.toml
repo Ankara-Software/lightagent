@@ -2,9 +2,11 @@
 name = "lightagent"
 version = "0.1.2"
 edition = "2021"
-authors = ["Anilcan Kara <anilcankara.com@gmail.com>"]
+authors = ["Anilcan Kara"]
 description = "Zero-Dependency, State-Preserving Agent CLI"
 license = "MIT"
+repository = "https://github.com/Ankara-Software/lightagent"
+homepage = "https://ankarayazilim.org/acik-kaynak/lightagent"
 
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }

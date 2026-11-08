@@ -68,3 +68,39 @@ impl Executor {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_run_command_success_contains_stdout() {
+        let result = Executor::run_command("echo lightagent-test").unwrap();
+        assert!(result.contains("lightagent-test"));
+        assert!(result.contains("Exit code: 0"));
+    }
+
+    #[test]
+    fn test_run_command_failure_returns_error() {
+        let result = Executor::run_command("exit 3");
+        assert!(result.is_err());
+        assert!(result.unwrap_err().contains("Exit code: 3"));
+    }
+
+    #[test]
+    fn test_write_then_read_file() {
+        let directory = std::env::temp_dir().join(format!("lightagent-test-{}", std::process::id()));
+        let file_path = directory.join("nested").join("note.txt");
+        let file_path_text = file_path.to_string_lossy().to_string();
+
+        Executor::write_file(&file_path_text, "content").unwrap();
+        assert_eq!(Executor::read_file(&file_path_text).unwrap(), "content");
+
+        std::fs::remove_dir_all(&directory).unwrap();
+    }
+
+    #[test]
+    fn test_read_missing_file_returns_error() {
+        assert!(Executor::read_file("/nonexistent/lightagent/file.txt").is_err());
+    }
+}
