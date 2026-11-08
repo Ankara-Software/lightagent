@@ -1,7 +1,5 @@
 use clap::{Parser, Subcommand};
 use colored::*;
-use serde_json::Value;
-use std::path::PathBuf;
 
 mod git;
 mod state;
