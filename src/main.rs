@@ -1,15 +1,15 @@
 use clap::{Parser, Subcommand};
 use colored::*;
 
-mod git;
-mod state;
-mod llm;
 mod executor;
+mod git;
+mod llm;
+mod state;
 
-use git::Git;
-use state::StateManager;
-use llm::LlmClient;
 use executor::Executor;
+use git::Git;
+use llm::LlmClient;
+use state::StateManager;
 
 #[derive(Parser)]
 #[command(name = "lightagent")]
@@ -61,15 +61,24 @@ fn run_loop(yolo: bool) {
     let llm = LlmClient::new();
 
     if !state_manager.is_state_present() {
-        println!("{}", "Error: No active task to run. Use 'lightagent start \"task\"' first.".red());
+        println!(
+            "{}",
+            "Error: No active task to run. Use 'lightagent start \"task\"' first.".red()
+        );
         return;
     }
 
     println!("{}", "=== LightAgent Autonomous Loop ===".bold().blue());
     if yolo {
-        println!("{}", "YOLO mode enabled! Running autonomously without confirmation.".yellow());
+        println!(
+            "{}",
+            "YOLO mode enabled! Running autonomously without confirmation.".yellow()
+        );
     } else {
-        println!("{}", "Confirmation mode enabled. You will be prompted before each action.".cyan());
+        println!(
+            "{}",
+            "Confirmation mode enabled. You will be prompted before each action.".cyan()
+        );
     }
 
     // Main execution loop
@@ -91,7 +100,10 @@ fn run_loop(yolo: bool) {
 
         let mut history = String::new();
         for step in &steps {
-            history.push_str(&format!("[Timestamp: {} | Type: {}]\n{}\n\n", step.timestamp, step.step_type, step.payload));
+            history.push_str(&format!(
+                "[Timestamp: {} | Type: {}]\n{}\n\n",
+                step.timestamp, step.step_type, step.payload
+            ));
         }
 
         // 2. Query LLM
@@ -104,7 +116,10 @@ fn run_loop(yolo: bool) {
             }
         };
 
-        let thought = response_val.get("thought").and_then(|t| t.as_str()).unwrap_or("");
+        let thought = response_val
+            .get("thought")
+            .and_then(|t| t.as_str())
+            .unwrap_or("");
         let action = match response_val.get("action") {
             Some(a) => a,
             None => {
@@ -122,7 +137,7 @@ fn run_loop(yolo: bool) {
             "run_command" => {
                 let cmd = action.get("command").and_then(|c| c.as_str()).unwrap_or("");
                 println!("{} {}", "Action: Run command ->".cyan(), cmd);
-                
+
                 if !yolo {
                     print!("Approve execution? (y/N): ");
                     std::io::Write::flush(&mut std::io::stdout()).unwrap();
@@ -138,11 +153,17 @@ fn run_loop(yolo: bool) {
                 match Executor::run_command(cmd) {
                     Ok(out) => {
                         println!("{}", "Command succeeded.".green());
-                        let _ = state_manager.append_step("command_run", &format!("Command: {}\nResult:\n{}", cmd, out));
+                        let _ = state_manager.append_step(
+                            "command_run",
+                            &format!("Command: {}\nResult:\n{}", cmd, out),
+                        );
                     }
                     Err(err) => {
                         println!("{}", "Command failed.".red());
-                        let _ = state_manager.append_step("command_run", &format!("Command: {}\nResult:\n{}", cmd, err));
+                        let _ = state_manager.append_step(
+                            "command_run",
+                            &format!("Command: {}\nResult:\n{}", cmd, err),
+                        );
                     }
                 }
             }
@@ -181,7 +202,10 @@ fn run_loop(yolo: bool) {
                 match Executor::read_file(path) {
                     Ok(content) => {
                         println!("Read completed successfully ({} bytes).", content.len());
-                        let _ = state_manager.append_step("file_read", &format!("Read file: {}\nContent:\n{}", path, content));
+                        let _ = state_manager.append_step(
+                            "file_read",
+                            &format!("Read file: {}\nContent:\n{}", path, content),
+                        );
                     }
                     Err(err) => {
                         println!("{}", err.red());
@@ -215,10 +239,13 @@ fn main() {
                 println!("{}", "Warning: Overwriting active task state.".yellow());
                 let _ = state_manager.clear_state();
             }
-            
+
             let commit = Git::get_commit_hash();
             let branch = Git::get_branch();
-            let payload = format!("Task: {}\nGit Branch: {}\nGit Commit: {}", task, branch, commit);
+            let payload = format!(
+                "Task: {}\nGit Branch: {}\nGit Commit: {}",
+                task, branch, commit
+            );
 
             if let Err(e) = state_manager.append_step("task_start", &payload) {
                 println!("Failed to write state: {}", e);
@@ -229,11 +256,14 @@ fn main() {
         }
         Commands::Resume { yolo } => {
             if !state_manager.is_state_present() {
-                println!("{}", "No active task found. Run 'lightagent start \"task\"' first.".red());
+                println!(
+                    "{}",
+                    "No active task found. Run 'lightagent start \"task\"' first.".red()
+                );
                 return;
             }
             println!("{}", "Resuming active task...".green());
-            
+
             // Check Git drift
             let current_commit = Git::get_commit_hash();
             if let Ok(steps) = state_manager.load_steps() {
@@ -265,13 +295,18 @@ fn main() {
                 }
                 println!("\nExecution History ({} steps):", steps.len());
                 for (idx, step) in steps.iter().enumerate() {
-                    println!("  [{}] {} -> {}", idx + 1, step.step_type.cyan(), step.timestamp);
+                    println!(
+                        "  [{}] {} -> {}",
+                        idx + 1,
+                        step.step_type.cyan(),
+                        step.timestamp
+                    );
                 }
             }
         }
         Commands::Clear => {
             if state_manager.is_state_present() {
-                if let Ok(_) = state_manager.clear_state() {
+                if state_manager.clear_state().is_ok() {
                     println!("{}", "Cleared active task state.".green());
                 }
             } else {

@@ -5,8 +5,8 @@ const path = require('path');
 const https = require('https');
 const { spawn } = require('child_process');
 
-const VERSION = '0.1.2';
-const REPO = 'anilcan-kara/lightagent';
+const VERSION = '0.1.3';
+const REPO = 'Ankara-Software/lightagent';
 
 // Map Node platform/arch to release assets
 const platform = process.platform;
