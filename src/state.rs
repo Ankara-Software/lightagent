@@ -1,8 +1,8 @@
+use chrono::Utc;
+use serde::{Deserialize, Serialize};
 use std::fs::{self, OpenOptions};
 use std::io::{self, BufRead, BufReader, Write};
 use std::path::Path;
-use serde::{Deserialize, Serialize};
-use chrono::Utc;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Step {
@@ -42,7 +42,6 @@ impl StateManager {
         let serialized = serde_json::to_string(&step)?;
         let mut file = OpenOptions::new()
             .create(true)
-            .write(true)
             .append(true)
             .open(&self.file_path)?;
 

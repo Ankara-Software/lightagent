@@ -7,29 +7,27 @@ pub struct Executor;
 impl Executor {
     pub fn run_command(command: &str) -> Result<String, String> {
         let os = std::env::consts::OS;
-        
+
         let output = if os == "windows" {
             Command::new("powershell")
                 .args(["-Command", command])
                 .output()
         } else {
-            Command::new("sh")
-                .args(["-c", command])
-                .output()
+            Command::new("sh").args(["-c", command]).output()
         };
 
         match output {
             Ok(out) => {
                 let stdout = String::from_utf8_lossy(&out.stdout).to_string();
                 let stderr = String::from_utf8_lossy(&out.stderr).to_string();
-                
+
                 let result = format!(
                     "Exit code: {}\nStdout:\n{}\nStderr:\n{}",
                     out.status.code().unwrap_or(-1),
                     stdout,
                     stderr
                 );
-                
+
                 if out.status.success() {
                     Ok(result)
                 } else {
@@ -49,7 +47,7 @@ impl Executor {
                 }
             }
         }
-        
+
         match fs::write(path, content) {
             Ok(_) => Ok(format!("Successfully wrote file: {}", file_path)),
             Err(e) => Err(format!("Failed to write file: {}", e)),
@@ -61,7 +59,7 @@ impl Executor {
         if !path.exists() {
             return Err(format!("File not found: {}", file_path));
         }
-        
+
         match fs::read_to_string(path) {
             Ok(content) => Ok(content),
             Err(e) => Err(format!("Failed to read file: {}", e)),
@@ -89,7 +87,8 @@ mod tests {
 
     #[test]
     fn test_write_then_read_file() {
-        let directory = std::env::temp_dir().join(format!("lightagent-test-{}", std::process::id()));
+        let directory =
+            std::env::temp_dir().join(format!("lightagent-test-{}", std::process::id()));
         let file_path = directory.join("nested").join("note.txt");
         let file_path_text = file_path.to_string_lossy().to_string();
 

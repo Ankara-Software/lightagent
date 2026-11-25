@@ -1,6 +1,6 @@
 {
   "name": "lightagent-cli",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Zero-Dependency, State-Preserving Agent CLI — written in Rust",
   "main": "bin/cli.js",
   "bin": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anilcan-kara/lightagent.git"
+    "url": "git+https://github.com/Ankara-Software/lightagent.git"
   },
   "keywords": [
     "agent",
@@ -26,9 +26,9 @@
   "author": "Anilcan Kara",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/anilcan-kara/lightagent/issues"
+    "url": "https://github.com/Ankara-Software/lightagent/issues"
   },
-  "homepage": "https://github.com/anilcan-kara/lightagent#readme",
+  "homepage": "https://github.com/Ankara-Software/lightagent#readme",
   "engines": {
     "node": ">=14"
   }
